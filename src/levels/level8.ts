@@ -1,0 +1,110 @@
+import { buildLevel, type LevelBlueprint } from '../game/LevelManager'
+
+const level8: LevelBlueprint = {
+  id: 8,
+  name: 'The Watcher',
+  subtitle: 'It was never following you. It was waiting for you.',
+  briefing: [
+    'This is the end of the road.',
+    'The key opens the first door. The light opens the last.',
+    'Let it block the laser. Let it press the plate.',
+    'In the last room, face it. Stand in the light. Do not look away.',
+    'It has been watching over you all along.',
+  ],
+  map: [
+    '##################################',
+    '#...........#......#.....#.......#',
+    '#.P......K..#......#.....#.......#',
+    '#...........#......#.....#.......M',
+    '#...........#......#.....#.......#',
+    '#...........D......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#...Z..D.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#......#..X..D.......#',
+    '#...........#...W..#.....#.......#',
+    '#...........#......#.....#....E..#',
+    '#...........#......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '#...........#......#.....#.......#',
+    '##################################',
+  ],
+  creature: { speed: 90, chaseMul: 1.5, reactDelay: 0.4 },
+  ambient: { darkness: 0.94, tint: 'rgba(20,16,30,0.3)', flickerIntensity: 1.1, whisperChance: 0.4 },
+  player: { speed: 165 },
+  prowl: [
+    { x: 4 * 48 + 24, y: 2 * 48 + 24 },
+    { x: 14 * 48 + 24, y: 15 * 48 + 24 },
+    { x: 24 * 48 + 24, y: 3 * 48 + 24 },
+    { x: 30 * 48 + 24, y: 10 * 48 + 24 },
+  ],
+  extras: [
+    {
+      id: 'note_watcher',
+      type: 'note',
+      x: 4 * 48 + 12,
+      y: 16 * 48 + 12,
+      w: 24,
+      h: 24,
+      text: 'It has been here longer than the building. It was waiting for the last door to open. It was waiting for you.',
+    },
+    {
+      id: 'lamp_circle',
+      type: 'lamp',
+      x: 30 * 48 + 12,
+      y: 15 * 48 + 12,
+      w: 24,
+      h: 24,
+      flicker: 0.1,
+      radius: 320,
+      on: true,
+    },
+  ],
+  overrides: {
+    keys: {
+      K_9_2: { keyId: 'key_1' },
+    },
+    mirrors: {
+      M_33_3: { faceDir: 'west', active: true },
+    },
+    plates: {
+      X_22_13: { requires: 'creature', targetId: 'D_25_13' },
+    },
+    doors: {
+      D_12_5: {
+        locked: true,
+        keyId: 'key_1',
+        opensWith: ['key'],
+        sourceIds: [],
+        holdTime: 9999,
+        slideDir: 'right',
+      },
+      D_19_10: {
+        locked: false,
+        opensWith: ['laser'],
+        sourceIds: ['Z_16_10'],
+        mode: 'any',
+        holdTime: 9999,
+        slideDir: 'up',
+      },
+      D_25_13: {
+        locked: false,
+        opensWith: ['plate'],
+        sourceIds: ['X_22_13'],
+        mode: 'any',
+        holdTime: 9999,
+        slideDir: 'right',
+        sensorRadius: 280,
+      },
+    },
+    exits: {
+      E_30_15: { open: false, requiresStare: { radius: 260, duration: 3 } },
+    },
+  },
+}
+
+export default buildLevel(level8)

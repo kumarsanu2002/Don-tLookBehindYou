@@ -1,0 +1,97 @@
+import { buildLevel, type LevelBlueprint } from '../game/LevelManager'
+
+const level9: LevelBlueprint = {
+  id: 9,
+  name: 'The Blink Room',
+  subtitle: 'Blink first. Blink on purpose.',
+  briefing: [
+    'The lights stutter. Every four seconds, you blink — whether you want to or not.',
+    'While your eyes are closed, it can move. Even if you are looking straight at it.',
+    'Time your crossings between blinks. Reach the key. Reach the door.',
+    'If you hear it breathing, you have already stopped blinking.',
+  ],
+  map: [
+    '########################################',
+    '#......................................#',
+    '#.P....................................#',
+    '#.................K....................#',
+    '#.......W.....................##.......#',
+    '#.............................##.......#',
+    '#......................................#',
+    '#......................................#',
+    '#...........##..........##.............#',
+    '#...........##..........##.............#',
+    '#.........C............................#',
+    '#......................................#',
+    '#...........................N.....##...#',
+    '#.................................##...#',
+    '#.................##...................#',
+    '#.................##...................#',
+    '#.....##.........................#.....#',
+    '#.....##.........................#.....#',
+    '#................................D..E..#',
+    '#................................#.....#',
+    '#......................................#',
+    '########################################',
+  ],
+  blink: { interval: 4, duration: 0.4 },
+  creature: { speed: 96, chaseMul: 1.55, reactDelay: 0.35 },
+  ambient: { darkness: 0.93, tint: 'rgba(16,18,26,0.3)', flickerIntensity: 1.6, whisperChance: 0.4 },
+  player: { speed: 166 },
+  prowl: [
+    { x: 7 * 48 + 24, y: 4 * 48 + 24 },
+    { x: 16 * 48 + 24, y: 3 * 48 + 24 },
+    { x: 24 * 48 + 24, y: 6 * 48 + 24 },
+    { x: 12 * 48 + 24, y: 14 * 48 + 24 },
+    { x: 26 * 48 + 24, y: 16 * 48 + 24 },
+    { x: 7 * 48 + 24, y: 4 * 48 + 24 },
+  ],
+  extras: [
+    {
+      id: 'lamp_blink_1',
+      type: 'lamp',
+      x: 16 * 48 + 12,
+      y: 9 * 48 + 12,
+      w: 24,
+      h: 24,
+      flicker: 0.5,
+      radius: 250,
+      on: true,
+    },
+    {
+      id: 'lamp_blink_2',
+      type: 'lamp',
+      x: 32 * 48 + 12,
+      y: 4 * 48 + 12,
+      w: 24,
+      h: 24,
+      flicker: 0.5,
+      radius: 230,
+      on: true,
+    },
+  ],
+  overrides: {
+    keys: {
+      K_18_3: { keyId: 'key_1' },
+    },
+    notes: {
+      N_28_12: {
+        id: 'story_blink',
+        storyIndex: 0,
+        text: 'ENTRY 1 — Blink tests. The subjects report a flicker every four seconds, like a camera shutter. In that flicker, it steps. They told us to hold the stare. They were wrong. Blink first. Blink on purpose.',
+      },
+    },
+    doors: {
+      D_33_18: {
+        locked: true,
+        keyId: 'key_1',
+        opensWith: ['key'],
+        sourceIds: [],
+        holdTime: 9999,
+        slideDir: 'right',
+      },
+    },
+  },
+}
+
+export default buildLevel(level9)
