@@ -245,6 +245,27 @@ body,
 
 /* ---------------- rotate hint ---------------- */
 
+@media (hover: none) and (pointer: coarse) {
+  .menu-overlay {
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 40px 16px;
+  }
+
+  .menu-overlay .menu-inner {
+    margin: auto;
+    width: 100%;
+  }
+
+  .menu-overlay .btn {
+    min-width: 0;
+    width: min(320px, 86vw);
+  }
+}
+
 .rotate-hint {
   position: fixed;
   inset: 0;

@@ -19,6 +19,7 @@ import { AchievementToast } from './components/AchievementToast'
 import { NoteOverlay } from './components/NoteOverlay'
 import { RotateHint } from './components/RotateHint'
 import { IntroScreen } from './components/IntroScreen'
+import { useMobileFullscreen } from './hooks/useMobileFullscreen'
 
 interface IntroData {
   id: number
@@ -42,6 +43,8 @@ interface AchievementToastData {
 }
 
 export default function App() {
+  useMobileFullscreen()
+
   const [showIntro, setShowIntro] = useState(true)
   const [gameState, setGameState] = useState<GameState>('MENU')
   const [screen, setScreen] = useState<'main' | 'levels' | 'settings' | 'howto' | 'credits' | 'achievements'>('main')
