@@ -19,6 +19,7 @@ import { AchievementToast } from './components/AchievementToast'
 import { NoteOverlay } from './components/NoteOverlay'
 import { RotateHint } from './components/RotateHint'
 import { IntroScreen } from './components/IntroScreen'
+import { FullscreenHint } from './components/FullscreenHint'
 import { useMobileFullscreen } from './hooks/useMobileFullscreen'
 
 interface IntroData {
@@ -282,6 +283,8 @@ export default function App() {
       )}
 
       <RotateHint />
+
+      {gameState === 'MENU' && <FullscreenHint />}
 
       {showIntro && <IntroScreen onDone={() => setShowIntro(false)} />}
     </div>
